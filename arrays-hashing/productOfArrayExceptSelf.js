@@ -5,28 +5,22 @@
  var productExceptSelf = function(nums) {
     // create answer array
     let answer = []
-
-    // create counter variable
-    let count = 0;
-
     // create variable to hold product
-    let product = 0;
-    // while length of answer array isnt equal to length of nums array
-    while (answer.length !== nums.length) {
+    let product = 1;
+    // outside loop
+    for (let i = 0; i < nums.length; i++) {
       // loop through nums array
-      for (let i = 0; i < nums.length; i++) {
+      for (let k = 0; k < nums.length; k++) {
         // check if count is same as current itteration var
-        if (i === count) {
+        if (i === k) {
           // if so, continue to next iteration
           continue;
         }
         // if not, calculate product
-        product  *= nums[i];
+        product  *= nums[k];
       }
       // push final product to answer array
       answer.push(product);
-      // increment counter
-      count++;
       // reset product value
       product = 1;
     }
