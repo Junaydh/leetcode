@@ -25,9 +25,9 @@
       helper[val].push(key);
     }
     // loop backwards through helper array (largest count to smallest count)
-    for (let i = helper.length -1; i < 1; i--) {
+    for (let i = helper.length -1; i > 0; i--) {
       // loop through each value in nested array
-      for (num of helper[i]) {
+      for (let num of helper[i]) {
         // push that value to results array
         result.push(num);
         // if length of result array = k, return
