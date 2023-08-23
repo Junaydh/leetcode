@@ -12,3 +12,20 @@ class Solution:
             # check if length of filtered and set are not equal
             if len(filtered) != len(mySet):
                 return False
+
+
+            # check if column contains duplicate numbers
+            for j in range(0, 9):
+                # append each value to dict to get arrays of column values
+                dict[j].append(board[i][j])
+
+            # repeat filtering logic
+            colFilter = filter(lambda x: (x.isnumeric()), dict[j])
+            colFiltered = list(colFilter)
+            colSet = set(colFiltered)
+
+            # check if length of filtered and set are not equal
+            if len(colFiltered) != len(colSet):
+                return False  
+        # check if 3x3 contains duplicates
+         
