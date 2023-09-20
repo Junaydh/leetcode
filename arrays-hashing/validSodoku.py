@@ -1,31 +1,29 @@
+import collections
+
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        # create dict variable to hold columns
-        dict = {0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[]}
-        # check if row contains duplicate numbers
-        for i in range(0, 9):
-            # remove periods from list
-            myFilter = filter(lambda x: (x.isnumeric()), board[i])
-            filtered = set(list(myFilter))
-            # remove duplicates using set constructor
-            mySet = set(filtered)
-            # check if length of filtered and set are not equal
-            if len(filtered) != len(mySet):
-                return False
-
-
-            # check if column contains duplicate numbers
-            for j in range(0, 9):
-                # append each value to dict to get arrays of column values
-                dict[j].append(board[i][j])
-
-            # repeat filtering logic
-            colFilter = filter(lambda x: (x.isnumeric()), dict[j])
-            colFiltered = list(colFilter)
-            colSet = set(colFiltered)
-
-            # check if length of filtered and set are not equal
-            if len(colFiltered) != len(colSet):
-                return False  
-        # check if 3x3 contains duplicates
-         
+        # create empty sets to store every unique value in each row, coloumn and 3 x 3 grid
+        rows = collections.defaultdict(set)
+        cols = collections.defaultdict(set)
+        # the key for the 3 x 3 sub grids will be a touple in the format: (row# // 3, col# // 3)
+        # this integer division allows us to compute and track which subgrid a given value belongs to (0, 1, 2)
+        subGrids = collections.defaultdict(set)
+        # iterate through rows
+        for r in range(9):
+            #iterate through columns
+            for c in range(9):
+                # check if value is empty
+                if (board[r][c] == '.'):
+                    continue
+                # check if value exists in each of our sets using our iterators as keys, and a computed touple for the subgrid set
+                if (board[r][c] in rows[r] or
+                    board[r][c] in cols[c] or
+                    board[r][c] in subGrids[(r // 3, c // 3)]):
+                    # if it exists the board is invalid and we return false
+                    return False
+                # if they dont exist then we add those values to the current set and reiterate
+                rows[r].add(board[r][c])
+                cols[c].add(board[r][c])
+                subGrids[(r // 3, c // 3)].add(board[r][c])
+        # if our invalid condition doesnt get hit then return true
+        return True
