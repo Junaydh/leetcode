@@ -8,5 +8,5 @@ class Solution:
           return [l+1, r+1]
         elif cSum < target:
           l += 1
-        elif cSum > target:
+        else:
           r -= 1
