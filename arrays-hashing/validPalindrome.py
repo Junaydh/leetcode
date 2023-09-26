@@ -10,7 +10,14 @@ class Solution:
             if pattern.match(char):
                 filtered += char
         filtered = filtered.lower()
-        
+
+        for i in range(-1, ((len(filtered) + 1)* -1), -1):
+            reverse += filtered[i]
+
+        if filtered == reverse:
+            return True
+        else:
+            return False
 
 
     # remove all non letter chars
